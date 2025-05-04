@@ -93,7 +93,8 @@ def main():
     ########################
     st.header("１．ファイルを読み込もう")
     with st.container(border=True):
-        uploaded_file = st.file_uploader("ファイルをアップロードしてください", type="csv")
+        #uploaded_file = st.file_uploader("ファイルをアップロードしてください", type="csv")
+        uploaded_file = './Data/all_data_combine.csv'
 
         ## Data pre-processsing
         if uploaded_file is not None:
