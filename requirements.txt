@@ -1,7 +1,5 @@
 streamlit
 pandas
-seaborn
-matplotlib
 plotly
 datetime
 numpy
