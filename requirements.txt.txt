@@ -1,0 +1,14 @@
+streamlit
+pandas
+seaborn
+matplotlib
+plotly
+datetime
+numpy
+lightgbm
+pickle
+PIL
+glob
+cv2
+sklearn
+scipy
