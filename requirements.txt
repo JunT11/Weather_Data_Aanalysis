@@ -1,6 +1,7 @@
 streamlit
 pandas
 plotly
+matplotlib
 datetime
 numpy
 lightgbm
