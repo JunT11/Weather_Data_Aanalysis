@@ -7,7 +7,7 @@ Created on Tue Mon 10 10:57:37 2025
 import streamlit as st
 import pandas as pd
 #import seaborn as sns
-#import matplotlib.pyplot as plt
+import matplotlib as plt
 import glob
 import plotly.graph_objects as go 
 import plotly.io as pio
