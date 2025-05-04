@@ -6,7 +6,7 @@ Created on Tue Mon 10 10:57:37 2025
 """
 import streamlit as st
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
 import matplotlib.pyplot as plt
 import glob
 import plotly.graph_objects as go 
@@ -24,10 +24,10 @@ import scipy.sparse.linalg
 
 # ==================================================================================
 ### seabornのスタイル設定 ###
-sns.set_style(style="darkgrid")
-sns.set_context("paper")
-sns.set_color_codes("pastel")
-sns.set(font='IPAexGothic')
+#sns.set_style(style="darkgrid")
+#sns.set_context("paper")
+#sns.set_color_codes("pastel")
+#sns.set(font='IPAexGothic')
 
 ### List ###
 Power_List = ["原子力", "火力", "水力", "地熱", "バイオマス", "太陽光発電実績", "風力発電実績"]
