@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import plotly.express as px
 import datetime
-import cv2
+#import cv2
 import numpy as np
 import lightgbm as lgb
 import pickle
