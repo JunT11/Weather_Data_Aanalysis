@@ -41,18 +41,18 @@ def data_preproc(_df):
     # Convert the date column to datetime
     _df['date'] = pd.to_datetime(_df['年月日時'])
     # 1万kw=10MW変換
-    _df["原子力"] = _df["原子力"]*0.1
-    _df["火力"] = _df["火力"]*0.1
-    _df["水力"] = _df["水力"]*0.1
-    _df["地熱"] = _df["地熱"]*0.1
-    _df["バイオマス"] = _df["バイオマス"]*0.1
-    _df["太陽光発電実績"] = _df["太陽光発電実績"]*0.1
-    _df["太陽光出力制御量"] = _df["太陽光出力制御量"]*0.1
-    _df["風力発電実績"] = _df["風力発電実績"]*0.1
-    _df["風力出力制御量"] = _df["風力出力制御量"]*0.1
-    _df["揚水"] = _df["揚水"]*0.1
-    _df["連系線"] = _df["連系線"]*0.1
-    _df["合計"] = _df["合計"]*0.1
+    _df["原子力"] = _df["原子力"]*10
+    _df["火力"] = _df["火力"]*10
+    _df["水力"] = _df["水力"]*10
+    _df["地熱"] = _df["地熱"]*10
+    _df["バイオマス"] = _df["バイオマス"]*10
+    _df["太陽光発電実績"] = _df["太陽光発電実績"]*10
+    _df["太陽光出力制御量"] = _df["太陽光出力制御量"]*10
+    _df["風力発電実績"] = _df["風力発電実績"]*10
+    _df["風力出力制御量"] = _df["風力出力制御量"]*10
+    _df["揚水"] = _df["揚水"]*10
+    _df["連系線"] = _df["連系線"]*10
+    _df["合計"] = _df["合計"]*10
 
     # Get each data info
     _df['year'] = _df['date'].dt.year
@@ -244,7 +244,7 @@ def main():
                     fig3 = go.Figure()
                     for idx in range(len(Power_List)):
                         fig3.add_trace(go.Bar(x=df_cut_1day_1["hour"], y=df_cut_1day_1[Power_List[idx]], name=Power_List_Short[idx]))
-                    fig3.update_yaxes(range=(0, 500)) # y軸を固定
+                    fig3.update_yaxes(range=(0, 50000)) # y軸を固定
                     fig3.update_layout(yaxis1=dict(side='left',
                                                 showgrid=True,
                                                 title='[MW]'),
@@ -262,7 +262,7 @@ def main():
                     fig4 = go.Figure()
                     for idx in range(len(Power_List)):
                         fig4.add_trace(go.Bar(x=df_cut_1day_2["hour"], y=df_cut_1day_2[Power_List[idx]], name=Power_List_Short[idx]))
-                    fig4.update_yaxes(range=(0, 500))
+                    fig4.update_yaxes(range=(0, 50000))
                     fig4.update_layout(yaxis1=dict(side='left',
                                                 showgrid=True,
                                                 title='[MW]'),
@@ -333,8 +333,8 @@ def main():
                 # テストデータの予測
                 y_result = loaded_model.predict(ai_input.reshape(1, -1))
 
-                result_fire = round(y_result[0][0]*0.1, 1)
-                result_sun = round(y_result[0][1]*0.1, 1)
+                result_fire = round(y_result[0][0]*10, 1)
+                result_sun = round(y_result[0][1]*10, 1)
 
                 # 表示部分
                 if st.button("AI予測スタート", key=1):
