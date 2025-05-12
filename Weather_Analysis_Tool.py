@@ -40,6 +40,19 @@ def data_preproc(_df):
 
     # Convert the date column to datetime
     _df['date'] = pd.to_datetime(_df['年月日時'])
+    # 1万kw=10MW変換
+    _df["原子力"] = _df["原子力"]*0.1
+    _df["火力"] = _df["火力"]*0.1
+    _df["水力"] = _df["水力"]*0.1
+    _df["地熱"] = _df["地熱"]*0.1
+    _df["バイオマス"] = _df["バイオマス"]*0.1
+    _df["太陽光発電実績"] = _df["太陽光発電実績"]*0.1
+    _df["太陽光出力制御量"] = _df["太陽光出力制御量"]*0.1
+    _df["風力発電実績"] = _df["風力発電実績"]*0.1
+    _df["風力出力制御量"] = _df["風力出力制御量"]*0.1
+    _df["揚水"] = _df["揚水"]*0.1
+    _df["連系線"] = _df["連系線"]*0.1
+    _df["合計"] = _df["合計"]*0.1
 
     # Get each data info
     _df['year'] = _df['date'].dt.year
@@ -106,15 +119,15 @@ def main():
             df_input_tmp = data_preproc(df_input)
 
             # Diaplay dataframe 
-            st.text("▼ １時間ごとのデータ")
+            st.text("▼ １時間ごとの電力データ[MW]")
             st.dataframe(df_input_tmp.iloc[:,:-7], height=300) # 追加した列は非表示とする
             # Diaplay dataframe 
-            st.text("▼ 日平均データ")
+            st.text("▼ 日平均電力データ[MW]")
             # Daliy Data作成
             df_grouped = df_input_tmp.groupby('day_str').mean(numeric_only=True)
             st.dataframe(df_grouped.iloc[:,:-4], height=300) # 追加した列は非表示とする
             # Diaplay dataframe 
-            st.text("▼ 月平均データ")
+            st.text("▼ 月平均電力データ[MW]")
             df_grouped_month = df_input_tmp.groupby('month_str').mean(numeric_only=True)
             st.dataframe(df_grouped_month.iloc[:,:-4], height=300) # 追加した列は非表示とする
 
@@ -231,10 +244,10 @@ def main():
                     fig3 = go.Figure()
                     for idx in range(len(Power_List)):
                         fig3.add_trace(go.Bar(x=df_cut_1day_1["hour"], y=df_cut_1day_1[Power_List[idx]], name=Power_List_Short[idx]))
-                    fig3.update_yaxes(range=(0, 5000)) # y軸を固定
+                    fig3.update_yaxes(range=(0, 500)) # y軸を固定
                     fig3.update_layout(yaxis1=dict(side='left',
                                                 showgrid=True,
-                                                title='[万kW]'),
+                                                title='[MW]'),
                                     legend=dict(xanchor='left',
                                                 yanchor='bottom',
                                                 x=0.02,
@@ -249,10 +262,10 @@ def main():
                     fig4 = go.Figure()
                     for idx in range(len(Power_List)):
                         fig4.add_trace(go.Bar(x=df_cut_1day_2["hour"], y=df_cut_1day_2[Power_List[idx]], name=Power_List_Short[idx]))
-                    fig4.update_yaxes(range=(0, 5000))
+                    fig4.update_yaxes(range=(0, 500))
                     fig4.update_layout(yaxis1=dict(side='left',
                                                 showgrid=True,
-                                                title='[万kW]'),
+                                                title='[MW]'),
                                     legend=dict(xanchor='left',
                                                 yanchor='bottom',
                                                 x=0.02,
@@ -320,8 +333,8 @@ def main():
                 # テストデータの予測
                 y_result = loaded_model.predict(ai_input.reshape(1, -1))
 
-                result_fire = round(y_result[0][0], 1)
-                result_sun = round(y_result[0][1], 1)
+                result_fire = round(y_result[0][0]*0.1, 1)
+                result_sun = round(y_result[0][1]*0.1, 1)
 
                 # 表示部分
                 if st.button("AI予測スタート", key=1):
@@ -332,14 +345,14 @@ def main():
                     with col32:
                         st.header(result_fire)
                     with col33:
-                        st.write("[万kw]です")
+                        st.write("[MW]です")
                     st.write("")
                     st.write("太陽光発電量は、")
                     col35,col36 = st.columns(2)
                     with col35:
                         st.header(result_sun)
                     with col36:
-                        st.write("[万kw]です")
+                        st.write("[MW]です")
 
     st.markdown("---")
 
